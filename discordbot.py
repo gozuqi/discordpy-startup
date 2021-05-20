@@ -31,6 +31,7 @@ async def on_ready():
 
 
 # 返信する非同期関数を定義
+@client.event
 async def reply(message):
     reply = f'{message.author.mention} ウェイヨー' # 返信メッセージの作成
     await message.channel.send(reply) # 返信メッセージを送信
