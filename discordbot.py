@@ -17,9 +17,12 @@ async def on_command_error(ctx, error):
     await ctx.send(error_msg)
 
 
+@client.event
 @bot.command()
 async def judge(ctx):
+    guild = discord.utils.get(client.guilds, name="名前")
     num_random = random.randrange(1,6)
+    await ctx.send(guild)
     await ctx.send(str(num_random))
 
 @client.event
