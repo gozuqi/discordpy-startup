@@ -14,8 +14,8 @@ async def on_command_error(ctx, error):
 
 
 @bot.command()
-async def gogo(ctx):
-    await ctx.send('gogogo')
+async def judge(ctx):
+    await ctx.send('1')
 
 
 bot.run(token)
