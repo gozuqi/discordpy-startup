@@ -19,15 +19,10 @@ async def on_command_error(ctx, error):
 
 @bot.command()
 async def judge(ctx):
-    await ctx.send('1')
-
-@client.event
-async def on_message(message):
-    if message.content.startswith("!dice"): #command
-        if client.user != message.author:
-            num_random = random.randrange(1,6)
-            m = str(num_random)
-            await client.send_message(message.channel, m)
+    if client.user != message.author:
+        num_random = random.randrange(1,6)
+        m = str(num_random)
+        await ctx.send('m')
 
 @client.event
 async def on_ready():
