@@ -18,6 +18,7 @@ async def on_command_error(ctx, error):
 @bot.command()
 async def d(ctx):
     num_random = random.randrange(1,6)
+    await ctx.send(str(ctx.author)+"さんのダイスの結果は")
     await ctx.send(str(num_random))
 
 @bot.command()
