@@ -7,8 +7,6 @@ import random
 
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
-client = discord.Client()
-
 
 @bot.event
 async def on_command_error(ctx, error):
@@ -22,15 +20,21 @@ async def d(ctx):
     num_random = random.randrange(1,6)
     await ctx.send(str(num_random))
 
+    intents = discord.Intents.default()
+    intents.members = True 
+    client = discord.Client(intents=intents)
+
+    # ==========
+    # client.runしたあとに下のコードを実行：
+    user = client.get_user(ユーザーID)
+    print(user.name, user.discriminator, str(user))
+
+
+
+
 @client.event
 async def on_message(message):
     print (message.author.id)
-
-@bot.command()
-async def n(ctx):
-    guild = message.guild
-    role = discord.utils.get(guild.roles, name="名前")
-    await ctx.send(role)
 
 
 @client.event
