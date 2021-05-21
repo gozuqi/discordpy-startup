@@ -30,10 +30,8 @@ async def n(ctx):
     await ctx.send(str(ctx.author))
 
 
-
-
 @client.event
-async def on_message(message):
+async def on_message(ctx):
     """メンバー募集 (.rect@数字)"""
     if message.content.startswith(".rect"):
         mcount = int(message.content[6:len(message.content)])
