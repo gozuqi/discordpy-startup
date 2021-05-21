@@ -8,30 +8,21 @@ import random
 bot = commands.Bot(command_prefix='/')
 token = os.environ['DISCORD_BOT_TOKEN']
 
-client = discord.Client()
-
-
 @bot.event
-async def on_command_error(ctx, error):
+async def on_command_error(message, error):
     orig_error = getattr(error, "original", error)
     error_msg = ''.join(traceback.TracebackException.from_exception(orig_error).format())
-    await ctx.send(error_msg)
+    await message.send(error_msg)
 
 
 @bot.command()
-async def d(ctx):
+async def d(message):
     num_random = random.randrange(1,6)
-    await ctx.send(str(ctx.author)+"さんのダイスの結果は")
-    await ctx.send(str(num_random))
+    await message.send(str(message.author) + "さんのダイスの結果は" + str(num_random))
 
-@bot.command()
-async def n(ctx):
-    await ctx.send(str(ctx.author.id))
-    await ctx.send(str(ctx.author))
-
-
+client = discord.Client()
 @client.event
-async def on_message(ctx):
+async def on_message(message):
     """メンバー募集 (.rect@数字)"""
     if message.content.startswith(".rect"):
         mcount = int(message.content[6:len(message.content)])
