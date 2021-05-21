@@ -22,10 +22,8 @@ async def d(ctx):
 
 @bot.command()
 async def n(ctx):
-    print (ctx.author.id)
-    print (ctx.author)
-
-
+    await ctx.send(str(ctx.author.id))
+    await ctx.send(str(ctx.author))
 
 bot.run(token)
 
