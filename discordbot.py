@@ -18,9 +18,13 @@ async def on_command_error(ctx, error):
 
 
 @bot.command()
-async def j(ctx):
+async def d(ctx):
     num_random = random.randrange(1,6)
     await ctx.send(str(num_random))
+
+@client.event
+async def on_message(message):
+    print (message.author.id)
 
 @bot.command()
 async def n(ctx):
