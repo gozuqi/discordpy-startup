@@ -20,6 +20,11 @@ async def d(ctx):
     num_random = random.randrange(1,6)
     await ctx.send(str(num_random))
 
+@bot.command()
+async def n(ctx):
+    print (ctx.author.id)
+    print (ctx.author)
+
 
 
 bot.run(token)
