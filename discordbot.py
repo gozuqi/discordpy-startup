@@ -22,4 +22,11 @@ async def d(ctx):
     await ctx.send(str(num_random))
 
 
-ot.run(token)
+
+bot.run(token)
+
+
+
+
+
+
