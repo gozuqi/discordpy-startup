@@ -20,6 +20,11 @@ async def d(message):
     num_random = random.randrange(1,6)
     await message.send(str(message.author) + "さんのダイスの結果は" + str(num_random)+ "です" )
 
+@bot.command()
+async def vote(message):
+    q = await message.channel.send("勝者は？")
+    [await q.add_reaction(i) for i in ('先行', '後攻')]  # for文の内包表記
+
 
 
 
