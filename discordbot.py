@@ -25,47 +25,33 @@ async def d(message):
 
 
 
+intents = discord.Intents.default()  # デフォルトのIntentsオブジェクトを生成
+intents.typing = False  # typingを受け取らないように
 
-client = discord.Client()  # 接続に使用するオブジェクト
-@client.event
+@bot.command()
+async def vote(ctx, title, *select):
+  if len(select) > 10:
+    err = discord.Embed(title = "選択肢が多すぎます。", color = discord.Colour.red())
+    await ctx.send(embed = err)
+    return
+
+  emoji_list = ["1⃣", "2⃣", "3⃣", "4⃣", "5⃣", "6⃣", "7⃣", "8⃣", "9⃣", "🔟"]
+  embed = discord.Embed(title = title, color = discord.Colour.red())
+
+  for num in range(len(select)):
+    embed.add_field(name = emoji_list[num], value = select[num], inline = False)
+  msg = await ctx.send(embed = embed)
+
+  for i in range(len(select)):
+    await msg.add_reaction(emoji_list[i])
+  return
+
+@bot.event
 async def on_ready():
-    """起動時に通知してくれる処理"""
-    print('ログインしました')
-    print(client.user.name)  # ボットの名前
-    print(client.user.id)  # ボットのID
-    print(discord.__version__)  # discord.pyのバージョン
-    print('------')
+  activity = discord.Activity(name = '/vote', type = discord.ActivityType.playing)
+  await bot.change_presence(activity = activity)
 
-
-@client.event
-async def on_message(message):
-    """メッセージを処理"""
-    if message.author.bot:  # ボットのメッセージをハネる
-        return
-
-    if message.content == "!眠たい":
-        # チャンネルへメッセージを送信
-        await message.channel.send(f"{message.author.mention}さん 寝ましょう")  # f文字列（フォーマット済み文字列リテラル）
-
-    elif message.content == "!投票":
-        # リアクションアイコンを付けたい
-        q = await message.channel.send("あなたは右利きですか？")
-        [await q.add_reaction(i) for i in ('⭕', '❌')]  # for文の内包表記
-
-    elif message.content == "!おみくじ":
-        # Embedを使ったメッセージ送信 と ランダムで要素を選択
-        embed = discord.Embed(title="おみくじ", description=f"{message.author.mention}さんの今日の運勢は！",
-                              color=0x2ECC69)
-        embed.set_thumbnail(url=message.author.avatar_url)
-        embed.add_field(name="[運勢] ", value=random.choice(('大吉', '吉', '凶', '大凶')), inline=False)
-        await message.channel.send(embed=embed)
-
-    elif message.content == "!ダイレクトメッセージ":
-        # ダイレクトメッセージ送信
-        dm = await message.author.create_dm()
-        await dm.send(f"{message.author.mention}さんにダイレクトメッセージ")
-
-
+if __name__ == "__main__":
 
 
 bot.run(token)
